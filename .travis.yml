@@ -1,0 +1,13 @@
+language: java
+branches:
+  only:
+  - master
+jdk:
+  - openjdk12
+install: mvn install -DskipTests=true -B -V
+after_success:
+  - git config --global user.email "builds@travis-ci.com"
+  - git config --global user.name "Travis CI"
+  - MVN_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+  - git tag $MVN_VERSION -f -a -m "feather version $MVN_VERSION"
+  - git push -f -q https://$TAGPERM@github.com/JoachimVandersmissen/feather --tags
