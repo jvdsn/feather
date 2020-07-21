@@ -10,4 +10,4 @@ after_success:
   - git config --global user.name "Travis CI"
   - MVN_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
   - git tag $MVN_VERSION -f -a -m "feather version $MVN_VERSION"
-  - git push -f -q https://$TAGPERM@github.com/JoachimVandersmissen/feather --tags
+  - git push -f -q https://$TRAVIS_TOKEN@github.com/jvdsn/feather --tags
